@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/api/profile/*")
 public class ProfileCtrl {
@@ -13,7 +15,7 @@ public class ProfileCtrl {
 	private String profile;
 
 	@GetMapping("checkProfile")
-	public String checkProfile() {
+	public String checkProfile(HttpSession session) {
 		return profile;
 	}
 }

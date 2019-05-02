@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+  nginx:
+    image: nginx:1.15
+    ports:
+      - 7080:80
+    volumes:
+      - ./data/nginx/conf.d:/etc/nginx/conf.d
+      - ./data/nginx/log:/var/log/nginx
+    depends_on:
+      - spring01
+      - spring02
+    networks:
+      - app_jds
+    #links:
+    #  - spring01
+    #  - spring02
+    #      - ./www:/var/www
+
+  spring01:
+    image: elliot/jds/dev:0.0.1-SNAPSHOT
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+    networks:
+      - app_jds
+
+  spring02:
+    image: elliot/jds/dev:0.0.1-SNAPSHOT
+    ports:
+      - 9080:8080
+    depends_on:
+      - redis
+    networks:
+      - app_jds
+
+  redis:
+    image: redis:5
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - app_jds
+
+networks:
+  app_jds:
+    driver: bridge

@@ -12,11 +12,19 @@
 
 ```mvn -P${profile} package dockerfile:build```
 
+或 
+
+```mvn -P${profile} package spring-boot:build-image```
+
 例如
 
 ```
 mvn -Pdev package dockerfile:build
+
+mvn -Pdev package spring-boot:build-image
 ```
+
+spring-boot maven plugin 產生的image啟動速度上會快一些
 
 ## Run
 
